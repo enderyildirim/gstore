@@ -12,23 +12,24 @@ import com.bittechzone.common.helper.DateHelper;
 
 @Entity
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String firstName;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String lastName;
-	
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	private String email;
-	
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	private String phone;
-	
-	@Column(nullable=true)
+
+	@Column(nullable = true)
 	private Date lastLogin = DateHelper.now();
 
 	public Integer getId() {
@@ -78,5 +79,5 @@ public class User {
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
 	}
-	
+
 }
