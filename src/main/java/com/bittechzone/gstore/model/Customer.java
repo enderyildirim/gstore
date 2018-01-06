@@ -1,17 +1,20 @@
 package com.bittechzone.gstore.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.bittechzone.common.helper.DateHelper;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
+public class Customer {
 
 	@Id
 	@GeneratedValue
@@ -22,23 +25,25 @@ public class User {
 
 	@Column(nullable = false)
 	private String lastName;
-	
-	@Column(nullable = false)
-	private String userName;
-	
-	@Column(nullable = false)
-	@JsonIgnore
-	private String password;
+
+	@OneToOne(optional = false)
+	private User createdBy;
+
+	@OneToOne
+	private User updatedBy;
 
 	private String email;
 
-	private String phone;
-	
+	private String phoneNumber;
+
+	private String address;
+
 	private Date createTime = DateHelper.now();
 
 	private Date updateTime;
 
-	private Date lastLoginTime;
+	@OneToMany(mappedBy = "performedBy")
+	private Set<Operation> operations = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -64,20 +69,20 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getUserName() {
-		return userName;
+	public User getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 
-	public String getPassword() {
-		return password;
+	public User getUpdatedBy() {
+		return updatedBy;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUpdatedBy(User updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	public String getEmail() {
@@ -88,12 +93,20 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public Date getCreateTime() {
@@ -112,12 +125,12 @@ public class User {
 		this.updateTime = updateTime;
 	}
 
-	public Date getLastLoginTime() {
-		return lastLoginTime;
+	public Set<Operation> getOperations() {
+		return operations;
 	}
 
-	public void setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
+	public void setOperations(Set<Operation> operations) {
+		this.operations = operations;
 	}
 
 }

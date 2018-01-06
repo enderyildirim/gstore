@@ -1,20 +1,19 @@
 package com.bittechzone.gstore.service;
 
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.bittechzone.gstore.base.BaseService;
 import com.bittechzone.gstore.model.User;
 import com.bittechzone.gstore.repository.UserRepository;
 
 @Service
+@Transactional
 public class UserService extends BaseService<User, Long, UserRepository> {
 		
-	public Iterable<User> getAllFirstNameSorted() {
-		Iterable<User> all = findAll();
-		return StreamSupport.stream(all.spliterator(), false)
-							.sorted((u1, u2) -> u1.getFirstName().compareTo(u2.getFirstName()))
-							.collect(Collectors.toList());
+	public Iterable<User> findByLastName(String lastName) {
+		return repository.findByLastName(lastName);
 	}
+	
 }

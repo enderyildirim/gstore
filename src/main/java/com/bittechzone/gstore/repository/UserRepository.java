@@ -6,4 +6,6 @@ import com.bittechzone.gstore.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long>{
 
+	Iterable<User> findByLastName(String lastName);
+
 }

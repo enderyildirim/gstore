@@ -34,6 +34,10 @@ dependencies {
 
     // Use MySQL Connector-J
     compile 'mysql:mysql-connector-java'
+    
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+	compile 'org.modelmapper:modelmapper:1.1.0'
+    
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

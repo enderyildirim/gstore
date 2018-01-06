@@ -1,4 +1,4 @@
-package com.bittechzone.gstore.service;
+package com.bittechzone.gstore.base;
 
 import java.io.Serializable;
 
@@ -7,10 +7,17 @@ import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
+/**
+ * @author Ender Yıldırım
+ *
+ * @param <E>  Entity class
+ * @param <ID> Id type(Long, Integer vs.)
+ * @param <R>  Repository class
+ */
 public abstract class BaseService<E, ID extends Serializable, R extends CrudRepository<E, ID>> {
 
 	@Autowired
-	private R repository;
+	protected R repository;
 
 	public void save(@NotNull E entity) {
 		repository.save(entity);
