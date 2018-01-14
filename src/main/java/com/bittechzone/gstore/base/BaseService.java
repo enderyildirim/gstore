@@ -19,12 +19,12 @@ public abstract class BaseService<E, ID extends Serializable, R extends CrudRepo
 	@Autowired
 	protected R repository;
 
-	public void save(@NotNull E entity) {
-		repository.save(entity);
+	public E save(@NotNull E entity) {
+		return repository.save(entity);
 	}
 
-	public void save(@NotNull Iterable<E> entities) {
-		repository.save(entities);
+	public Iterable<E> save(@NotNull Iterable<E> entities) {
+		return repository.save(entities);
 	}
 
 	public E findByID(@NotNull ID id) {

@@ -4,43 +4,39 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-public class User {
+public class WholeSaler {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @NotNull
-    @Column(nullable = false)
     private String firstName;
 
-    @NotNull
-    @Column(nullable = false)
     private String lastName;
 
-    @NotNull
-    @Column(nullable = false, unique = true)
-    private String userName;
-
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
-    @Column(nullable = false)
-    private String password;
+    private String phone;
 
     private String email;
 
-    private String phone;
+    private String address;
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(nullable = false)
+    private User createdBy;
+
+    @OneToOne
+    private User updatedBy;
 
     @Column(updatable = false)
     @CreationTimestamp
@@ -49,8 +45,6 @@ public class User {
     @Column(insertable = false, updatable = false)
     @UpdateTimestamp
     private Date updatedTime;
-
-    private Date lastLoginTime;
 
     public String getFirstName() {
 	return firstName;
@@ -68,28 +62,12 @@ public class User {
 	this.lastName = lastName;
     }
 
-    public String getUserName() {
-	return userName;
+    public String getPhone() {
+	return phone;
     }
 
-    public void setUserName(String userName) {
-	this.userName = userName;
-    }
-
-    public Gender getGender() {
-	return gender;
-    }
-
-    public void setGender(Gender gender) {
-	this.gender = gender;
-    }
-
-    public String getPassword() {
-	return password;
-    }
-
-    public void setPassword(String password) {
-	this.password = password;
+    public void setPhone(String phone) {
+	this.phone = phone;
     }
 
     public String getEmail() {
@@ -100,20 +78,28 @@ public class User {
 	this.email = email;
     }
 
-    public String getPhone() {
-	return phone;
+    public String getAddress() {
+	return address;
     }
 
-    public void setPhone(String phone) {
-	this.phone = phone;
+    public void setAddress(String address) {
+	this.address = address;
     }
 
-    public Date getLastLoginTime() {
-	return lastLoginTime;
+    public User getCreatedBy() {
+	return createdBy;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
-	this.lastLoginTime = lastLoginTime;
+    public void setCreatedBy(User createdBy) {
+	this.createdBy = createdBy;
+    }
+
+    public User getUpdatedBy() {
+	return updatedBy;
+    }
+
+    public void setUpdatedBy(User updatedBy) {
+	this.updatedBy = updatedBy;
     }
 
     public Long getId() {

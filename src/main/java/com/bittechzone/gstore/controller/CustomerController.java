@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bittechzone.gstore.dto.OperationDTO;
 import com.bittechzone.gstore.model.Customer;
-import com.bittechzone.gstore.model.Operation;
+import com.bittechzone.gstore.model.Sale;
 import com.bittechzone.gstore.service.CustomerService;
 
 @Controller
@@ -38,9 +38,9 @@ public class CustomerController {
 	
 	@GetMapping("/{id}/operations")
 	public @ResponseBody Set<OperationDTO> getUserOperations(@PathVariable Long id) {
-		Set<Operation> operations = customerService.findByID(id).getOperations();
+		Set<Sale> operations = customerService.findByID(id).getSales();
 		Set<OperationDTO> operationDTOs = new HashSet<>();
-		for (Operation operation : operations) {
+		for (Sale operation : operations) {
 			OperationDTO operationDTO = modelMapper.map(operation, OperationDTO.class);
 			operationDTOs.add(operationDTO);
 		}

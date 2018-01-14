@@ -5,11 +5,11 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.bittechzone.gstore.base.BaseService;
-import com.bittechzone.gstore.model.Operation;
-import com.bittechzone.gstore.repository.OperationRepository;
+import com.bittechzone.gstore.model.Sale;
+import com.bittechzone.gstore.repository.TransactionRepository;
 
 @Service
 @Transactional
-public class OperationService extends BaseService<Operation, Long, OperationRepository>{
+public class TransactionService extends BaseService<Sale, Long, TransactionRepository>{
 
 }

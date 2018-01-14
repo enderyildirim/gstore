@@ -6,131 +6,144 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
-import com.bittechzone.common.helper.DateHelper;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 public class Customer {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Column(nullable = false)
-	private String firstName;
+    @NotNull
+    @Column(nullable = false)
+    private String firstName;
 
-	@Column(nullable = false)
-	private String lastName;
+    @NotNull
+    @Column(nullable = false)
+    private String lastName;
 
-	@OneToOne(optional = false)
-	private User createdBy;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
-	@OneToOne
-	private User updatedBy;
+    private String email;
 
-	private String email;
+    private String phone;
 
-	private String phoneNumber;
+    private String address;
 
-	private String address;
+    @Column(updatable = false)
+    @CreationTimestamp
+    private Date createdTime;
 
-	private Date createTime = DateHelper.now();
+    @Column(insertable = false)
+    @UpdateTimestamp
+    private Date updatedTime;
 
-	private Date updateTime;
+    @NotNull
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, updatable = false)
+    private User createdBy;
 
-	@OneToMany(mappedBy = "performedBy")
-	private Set<Operation> operations = new HashSet<>();
+    @OneToOne
+    private User updatedBy;
 
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(mappedBy = "performedBy", fetch = FetchType.LAZY)
+    private Set<Sale> sales = new HashSet<>();
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public String getFirstName() {
+	return firstName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setFirstName(String firstName) {
+	this.firstName = firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getLastName() {
+	return lastName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setLastName(String lastName) {
+	this.lastName = lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public Gender getGender() {
+	return gender;
+    }
 
-	public User getCreatedBy() {
-		return createdBy;
-	}
+    public void setGender(Gender gender) {
+	this.gender = gender;
+    }
 
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
+    public User getCreatedBy() {
+	return createdBy;
+    }
 
-	public User getUpdatedBy() {
-		return updatedBy;
-	}
+    public void setCreatedBy(User createdBy) {
+	this.createdBy = createdBy;
+    }
 
-	public void setUpdatedBy(User updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+    public User getUpdatedBy() {
+	return updatedBy;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setUpdatedBy(User updatedBy) {
+	this.updatedBy = updatedBy;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+	return email;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public void setEmail(String email) {
+	this.email = email;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public String getPhone() {
+	return phone;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public void setPhone(String phone) {
+	this.phone = phone;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public String getAddress() {
+	return address;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setAddress(String address) {
+	this.address = address;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public Set<Sale> getSales() {
+	return sales;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public void setSales(Set<Sale> sales) {
+	this.sales = sales;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public Long getId() {
+	return id;
+    }
 
-	public Set<Operation> getOperations() {
-		return operations;
-	}
+    public Date getCreatedTime() {
+	return createdTime;
+    }
 
-	public void setOperations(Set<Operation> operations) {
-		this.operations = operations;
-	}
+    public Date getUpdatedTime() {
+	return updatedTime;
+    }
 
 }
